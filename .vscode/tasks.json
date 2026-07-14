@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "NetworkTest 빌드",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["build", "${workspaceFolder}/NetworkTest.csproj"],
+      "problemMatcher": "$msCompile",
+      "group": { "kind": "build", "isDefault": true }
+    }
+  ]
+}

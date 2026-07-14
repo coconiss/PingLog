@@ -1,0 +1,48 @@
+<Window x:Class="NetworkTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Network Test" Height="820" Width="1220" MinHeight="600" MinWidth="900"
+        Background="#F5F7FA">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.25*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="네트워크 연결 테스트" FontSize="26" FontWeight="SemiBold" Foreground="#182230" Margin="0,0,28,0"/>
+            <TextBlock Text="ICMP Ping 또는 TCP 포트 연결을 주기적으로 측정합니다." VerticalAlignment="Center" Foreground="#526070"/>
+        </StackPanel>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Background="White" CornerRadius="8" Padding="16" Margin="0,18,0,14">
+            <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="2*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"><TextBlock Text="대상 IP 또는 호스트"/><TextBox x:Name="HostTextBox" Text="8.8.8.8" Margin="0,5,12,0" Height="30"/></StackPanel>
+                <StackPanel Grid.Column="1"><TextBlock Text="포트 (선택)"/><TextBox x:Name="PortTextBox" Margin="0,5,12,0" Height="30" ToolTip="입력하면 TCP 포트 연결 시간을 측정합니다."/></StackPanel>
+                <StackPanel Grid.Column="2"><TextBlock Text="간격 (초)"/><TextBox x:Name="IntervalTextBox" Text="1" Margin="0,5,12,0" Height="30"/></StackPanel>
+                <Button x:Name="StartButton" Grid.Column="3" Content="시작" Click="StartButton_Click" Width="80" Height="30" Margin="0,23,8,0" Background="#1668E3" Foreground="White" BorderThickness="0"/>
+                <Button x:Name="StopButton" Grid.Column="4" Content="종료" Click="StopButton_Click" IsEnabled="False" Width="80" Height="30" Margin="0,23,0,0"/>
+            </Grid>
+        </Border>
+        <Border Grid.Row="2" Grid.ColumnSpan="2" Background="White" CornerRadius="8" Padding="14" Margin="0,0,0,14">
+            <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                <TextBlock x:Name="SummaryText" Text="대기 중 · 테스트를 시작하세요." FontWeight="SemiBold" Foreground="#27364A"/>
+                <DataGrid x:Name="ResultsGrid" Grid.Row="1" Margin="0,10,0,0" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding Results}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="시간" Binding="{Binding Timestamp, StringFormat=yyyy-MM-dd HH:mm:ss.fff}" Width="2*"/>
+                        <DataGridTextColumn Header="방식" Binding="{Binding Method}" Width="*"/>
+                        <DataGridTextColumn Header="결과" Binding="{Binding Status}" Width="*"/>
+                        <DataGridTextColumn Header="응답 시간 (ms)" Binding="{Binding LatencyMs}" Width="*"/>
+                        <DataGridTextColumn Header="상세" Binding="{Binding Detail}" Width="2*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="0" Background="White" CornerRadius="8" Padding="14" Margin="0,0,7,14"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><TextBlock Text="총 테스트 결과" FontWeight="SemiBold"/><Canvas x:Name="CountChart" Grid.Row="1" Margin="0,10,0,0" SizeChanged="Chart_SizeChanged"/></Grid></Border>
+        <Border Grid.Row="3" Grid.Column="1" Background="White" CornerRadius="8" Padding="14" Margin="7,0,0,14"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><TextBlock Text="응답시간 (ms)" FontWeight="SemiBold"/><Canvas x:Name="LatencyChart" Grid.Row="1" Margin="0,10,0,0" SizeChanged="Chart_SizeChanged"/></Grid></Border>
+        <Border Grid.Row="4" Grid.ColumnSpan="2" Background="White" CornerRadius="8" Padding="14"><StackPanel><TextBlock Text="로그" FontWeight="SemiBold"/><TextBlock Text="측정 결과는 실행 파일 옆 Logs 폴더에 날짜별 CSV 파일로 자동 저장됩니다." Foreground="#526070" Margin="0,8,0,0"/><TextBlock x:Name="LogPathText" Foreground="#526070" Margin="0,5,0,0"/></StackPanel></Border>
+    </Grid>
+</Window>

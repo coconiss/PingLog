@@ -1,0 +1,17 @@
+# local editor/OS metadata
+.idea/
+.vs/
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+Thumbs.db
+
+# .NET / WPF build and local runtime data
+bin/
+obj/
+TestResults/
+Logs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
