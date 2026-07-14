@@ -4,3 +4,4 @@
 - Added real-time results, charts, and complete session logs.
 - Added VS Code run support and GitHub release guidance.
 - Added source-control exclusions for build artifacts, logs, and user-specific IDE files.
+- Replaced README with a Korean and English description of the application.
